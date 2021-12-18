@@ -12,7 +12,8 @@ class Footer extends StatelessWidget {
     double _width = MediaQuery.of(context).size.width;
 
     _socialButtons(IconData icon) {
-      return Icon(icon, color: Colors.white);
+      return GestureDetector(
+          onTap: () {}, child: Icon(icon, color: Colors.white));
     }
 
     var space = SizedBox(width: (20 / 720) * _width);
@@ -26,9 +27,9 @@ class Footer extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text("\u00a92021 Mentors. All rights reserved",
-              style: Styles.textStyle(context, size: 16, color: Colors.white)),
+              style: Styles.textStyleFugazOne(context, size: 16, color: Colors.white)),
           Text("Developed by Sammy Mwenda",
-              style: Styles.textStyle(context, size: 16, color: Colors.white)),
+              style: Styles.textStyleFugazOne(context, size: 16, color: Colors.white)),
           Row(
             children: [
               _socialButtons(FontAwesomeIcons.github),

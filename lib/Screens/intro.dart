@@ -98,11 +98,11 @@ class _IntroPageState extends State<IntroPage> {
                   children: [
                     Text(
                       'Become or find a ',
-                      style: Styles.textStyle(context,size: 38, color: Colors.white),
+                      style: Styles.textStyleFugazOne(context,size: 38, color: Colors.white),
                     ),
                     Text(
                       'mentor',
-                      style: Styles.textStyle(context,
+                      style: Styles.textStyleFugazOne(context,
                           size: 36,
                           color: const Color.fromRGBO(247, 173, 25, 1.0)),
                     ),
@@ -114,7 +114,7 @@ class _IntroPageState extends State<IntroPage> {
                     top: (5 / 720) * _height, left: (60 / 720) * _height),
                 child: Text(
                   'Help shape up the future\nBe a mentor for  innovators and leaders  of the future.',
-                  style: Styles.textStyle(context,size: 20, color: Colors.white),
+                  style: Styles.textStyleFugazOne(context,size: 20, color: Colors.white),
                 ),
               ),
               Padding(
@@ -140,7 +140,7 @@ class _IntroPageState extends State<IntroPage> {
                             BorderRadius.circular((20 / 720) * _height)),
                     child: Center(
                       child: Text("Join the community",
-                          style: Styles.textStyle(context,
+                          style: Styles.textStyleFugazOne(context,
                               size: 24,
                               color: const Color.fromRGBO(5, 63, 92, 1.0))),
                     ),

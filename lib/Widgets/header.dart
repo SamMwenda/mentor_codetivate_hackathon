@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_codetivate_hackathon/Screens/profile.dart';
 
 class Header extends StatefulWidget {
   const Header({Key? key}) : super(key: key);
@@ -22,7 +23,22 @@ class _HeaderState extends State<Header> {
     //navigation buttons to different pages
     _menuNavigation(String text, {required Color color}) {
       return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          if (text == "Profile") {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 300),
+                    transitionsBuilder:
+                        (_, Animation<double> animation, __, Widget child) {
+                      return Opacity(
+                        opacity: animation.value,
+                        child: child,
+                      );
+                    },
+                    pageBuilder: (context, _, __) => ProfileScreen()));
+          }
+        },
         child: MouseRegion(
           onHover: (event) {
             if (text == "Profile") {

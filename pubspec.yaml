@@ -9,6 +9,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^9.2.0
+  cached_network_image: ^3.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -24,6 +25,7 @@ flutter:
     - assets/gui/logo.png
     - assets/gui/twitter.png
     - assets/gui/world.png
+    - assets/gui/medium.png
   fonts:
     - family: Poppins
       fonts:
