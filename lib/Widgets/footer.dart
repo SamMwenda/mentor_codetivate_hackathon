@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mentor_codetivate_hackathon/Widgets/textStyles.dart';
+import 'package:mentor_codetivate_hackathon/Widgets/text_styles.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);

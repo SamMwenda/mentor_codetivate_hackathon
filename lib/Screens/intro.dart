@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_codetivate_hackathon/Screens/sign_up.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/footer.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/header.dart';
-import 'package:mentor_codetivate_hackathon/Widgets/textStyles.dart';
+import 'package:mentor_codetivate_hackathon/Widgets/text_styles.dart';
 
 ///Flutter web App that creates the material app with
 ///theme and a page that will be initially built page
@@ -120,29 +121,46 @@ class _IntroPageState extends State<IntroPage> {
               Padding(
                 padding: EdgeInsets.only(
                     top: (40 / 720) * _height, left: (60 / 720) * _height),
-                child: MouseRegion(
-                  onHover: (event) {
-                    setState(() {
-                      hoverColor = const Color.fromRGBO(159, 231, 245, 1.0);
-                    });
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            transitionDuration:
+                                const Duration(milliseconds: 300),
+                            transitionsBuilder: (_, Animation<double> animation,
+                                __, Widget child) {
+                              return Opacity(
+                                opacity: animation.value,
+                                child: child,
+                              );
+                            },
+                            pageBuilder: (context, _, __) => const SignUpPage()));
                   },
-                  onExit: (event) {
-                    setState(() {
-                      hoverColor = const Color.fromRGBO(247, 173, 25, 1.0);
-                    });
-                  },
-                  child: Container(
-                    height: _height / 100 * 9,
-                    width: _width / 100 * 20,
-                    decoration: BoxDecoration(
-                        color: hoverColor,
-                        borderRadius:
-                            BorderRadius.circular((20 / 720) * _height)),
-                    child: Center(
-                      child: Text("Join the community",
-                          style: Styles.textStyleFugazOne(context,
-                              size: 24,
-                              color: const Color.fromRGBO(5, 63, 92, 1.0))),
+                  child: MouseRegion(
+                    onHover: (event) {
+                      setState(() {
+                        hoverColor = const Color.fromRGBO(159, 231, 245, 1.0);
+                      });
+                    },
+                    onExit: (event) {
+                      setState(() {
+                        hoverColor = const Color.fromRGBO(247, 173, 25, 1.0);
+                      });
+                    },
+                    child: Container(
+                      height: _height / 100 * 9,
+                      width: _width / 100 * 20,
+                      decoration: BoxDecoration(
+                          color: hoverColor,
+                          borderRadius:
+                              BorderRadius.circular((20 / 720) * _height)),
+                      child: Center(
+                        child: Text("Join the community",
+                            style: Styles.textStyleFugazOne(context,
+                                size: 24,
+                                color: const Color.fromRGBO(5, 63, 92, 1.0))),
+                      ),
                     ),
                   ),
                 ),

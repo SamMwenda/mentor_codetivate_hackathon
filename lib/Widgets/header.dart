@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_codetivate_hackathon/Screens/find_a_mentor.dart';
 import 'package:mentor_codetivate_hackathon/Screens/profile.dart';
 
 class Header extends StatefulWidget {
@@ -37,6 +38,19 @@ class _HeaderState extends State<Header> {
                       );
                     },
                     pageBuilder: (context, _, __) => ProfileScreen()));
+          } else if (text == "Find a mentor") {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 300),
+                    transitionsBuilder:
+                        (_, Animation<double> animation, __, Widget child) {
+                      return Opacity(
+                        opacity: animation.value,
+                        child: child,
+                      );
+                    },
+                    pageBuilder: (context, _, __) => const FindMentorScreen()));
           }
         },
         child: MouseRegion(

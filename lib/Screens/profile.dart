@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/footer.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/header.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/scrolling.dart';
-import 'package:mentor_codetivate_hackathon/Widgets/textStyles.dart';
+import 'package:mentor_codetivate_hackathon/Widgets/text_styles.dart';
 
 // ignore: use_key_in_widget_constructors
 class ProfileScreen extends StatelessWidget {
