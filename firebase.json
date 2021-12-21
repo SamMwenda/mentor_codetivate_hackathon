@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "thatguyskullie/mentor_codetivate_hackathon",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

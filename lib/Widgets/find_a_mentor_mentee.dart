@@ -1,9 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mentor_codetivate_hackathon/Models/mentee.dart';
+import 'package:mentor_codetivate_hackathon/Models/mentors.dart';
+import 'package:mentor_codetivate_hackathon/Widgets/text_styles.dart';
 
 class FindMentorMenteeItem extends StatelessWidget {
-  const FindMentorMenteeItem(this.color,{Key? key}) : super(key: key);
-  final Color color;
+  const FindMentorMenteeItem({Key? key, this.mentor, this.mentee})
+      : super(key: key);
+  final Mentor? mentor;
+  final Mentee? mentee;
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +16,8 @@ class FindMentorMenteeItem extends StatelessWidget {
     double _width = MediaQuery.of(context).size.width;
 
     return Stack(children: [
-      Container(
-        height: _height / 100 * 20,
-        width: _width / 100 * 20,
-        decoration:  BoxDecoration(
-          shape: BoxShape.circle,
-          color: color,
-        ),
-        child: Center(
-          child: CachedNetworkImage(
-            imageUrl: 'gs://mentor-5e2d9.appspot.com/profile/10.png',
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) =>
-                const Icon(Icons.error, color: Colors.white),
-            fadeOutDuration: const Duration(seconds: 1),
-            fadeInDuration: const Duration(seconds: 3),
-          ),
-        ),
-      ),
       Padding(
-        padding:  EdgeInsets.only(top: (100 / 720) * _height),
+        padding: EdgeInsets.only(top: (100 / 720) * _height),
         child: Container(
           height: _height / 100 * 20,
           width: _width / 100 * 20,
@@ -40,11 +26,40 @@ class FindMentorMenteeItem extends StatelessWidget {
               color: Colors.transparent,
               border: Border.all(
                 width: 2,
-                color: color,
+                color: mentor == null ? mentee!.color : mentor!.color,
               ),
               borderRadius: BorderRadius.circular((20 / 720) * _height)),
+          child: Column(children: [
+            Padding(
+              padding: EdgeInsets.only(top: (35 / 720) * _height),
+              child: Text(mentor == null ? mentee!.name : mentor!.name,
+                  style: Styles.textStyleFugazOne(context,
+                      size: 18, color: Colors.white)),
+            ),
+            Padding(
+              padding: EdgeInsets.all((10 / 720) * _height),
+              child: Text(mentor == null ? mentee!.carrer : mentor!.carrer,
+                  style: Styles.textStylePoppins(context,
+                      size: 18, color: Colors.white)),
+            )
+          ]),
         ),
-      )
+      ),
+      Container(
+        height: _height / 100 * 20,
+        width: _width / 100 * 20,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: mentor == null ? mentee!.color : mentor!.color,
+        ),
+        child: Center(
+          child: Center(
+              child: Image(
+                  image: AssetImage(
+            mentor == null ? mentee!.image : mentor!.image,
+          ))),
+        ),
+      ),
     ]);
   }
 }

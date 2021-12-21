@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class TextFieldWidget extends StatelessWidget {
-   bool obscureText = false;
-   TextFieldWidget(this.obscureText, {Key? key}) : super(key: key);
+  bool obscureText = false;
+  TextEditingController controller;
+  TextFieldWidget(this.obscureText, this.controller,{Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     //height and width of device screen
@@ -28,11 +29,12 @@ class TextFieldWidget extends StatelessWidget {
                     selectionHandleColor: Colors.white)),
             child: Center(
               child: TextFormField(
+                controller: controller,
                   scrollPhysics: const BouncingScrollPhysics(),
                   textAlign: TextAlign.start,
                   textAlignVertical: TextAlignVertical.center,
                   autocorrect: false,
-                  obscureText:obscureText ,
+                  obscureText: obscureText,
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(

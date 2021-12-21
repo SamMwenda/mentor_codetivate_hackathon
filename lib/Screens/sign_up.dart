@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mentor_codetivate_hackathon/Models/quotes_model.dart';
+import 'package:mentor_codetivate_hackathon/Models/user_data.dart';
+import 'package:mentor_codetivate_hackathon/Screens/profile.dart';
+import 'package:mentor_codetivate_hackathon/Services/firebase.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/footer.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/header.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/text_styles.dart';
@@ -15,6 +19,16 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  bool _signIn = false;
+  bool _isLoading = false;
+  String textLink = "Sign In";
+  String textButton = "Register";
+  late TextEditingController email = TextEditingController();
+  late TextEditingController password = TextEditingController();
+  late TextEditingController cPassword = TextEditingController();
+
+  ///retrieve the registered object for [FireStore]
+  FireStore get service => GetIt.I<FireStore>();
   @override
   Widget build(BuildContext context) {
     //height and width of device screen
@@ -40,30 +54,102 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: Styles.textStyleFugazOne(context,
                         size: 18, color: Colors.white),
                   ),
-                  TextFieldWidget(false),
+                  TextFieldWidget(false, email),
                   Text(
                     "Password:",
                     style: Styles.textStyleFugazOne(context,
                         size: 18, color: Colors.white),
                   ),
-                  TextFieldWidget(true),
-                  Text(
-                    "Confirm password:",
-                    style: Styles.textStyleFugazOne(context,
-                        size: 18, color: Colors.white),
-                  ),
-                  TextFieldWidget(true),
-                  Container(
-                    height: _height / 100 * 10,
-                    decoration: BoxDecoration(
-                        color: const Color.fromRGBO(66, 158, 189, 1.0),
-                        borderRadius:
-                            BorderRadius.circular((20 / 720) * _height)),
-                    child: Center(
-                      child: Text("Register",
+                  TextFieldWidget(true, password),
+                  !_signIn
+                      ? Text(
+                          "Confirm password:",
                           style: Styles.textStyleFugazOne(context,
-                              size: 24,
-                              color: const Color.fromRGBO(5, 63, 92, 1.0))),
+                              size: 18, color: Colors.white),
+                        )
+                      : Container(),
+                  !_signIn ? TextFieldWidget(true, cPassword) : Container(),
+                  GestureDetector(
+                    onTap: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      //before registering we want to  checkif it is register or signUpMemberWithEmailAndPassword validate Email
+                      // check also password match
+                      if (textButton == 'Register') {
+                        if (RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                .hasMatch(email.text) &&
+                            password.text == cPassword.text) {
+                          await service
+                              .signUpMemberWithEmailAndPassword(
+                                  email.text, password.text)
+                              .then((value)async {
+                            await service.createNewUser(UserModel(email: email.text),
+                                FirebaseAuth.instance.currentUser!.uid);
+                            setState(() {
+                              _isLoading = false;
+                              _signIn = true;
+                              textButton = "Sign In";
+                              textLink = "Register";
+                            });
+                          });
+                        } else {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        }
+                      } else {
+                        if (RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                .hasMatch(email.text) &&
+                            password.text.isNotEmpty) {
+                          await service
+                              .signInMemberWithEmailAndPassword(
+                                  email.text, password.text)
+                              .then((value) {
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                    transitionDuration:
+                                        const Duration(milliseconds: 300),
+                                    transitionsBuilder: (_,
+                                        Animation<double> animation,
+                                        __,
+                                        Widget child) {
+                                      return Opacity(
+                                        opacity: animation.value,
+                                        child: child,
+                                      );
+                                    },
+                                    pageBuilder: (context, _, __) =>
+                                        const ProfileScreen()));
+                            setState(() {
+                              _signIn = true;
+                            });
+                          });
+                        } else {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        }
+                      }
+                    },
+                    child: Container(
+                      height: _height / 100 * 10,
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(66, 158, 189, 1.0),
+                          borderRadius:
+                              BorderRadius.circular((20 / 720) * _height)),
+                      child: Center(
+                        child: !_isLoading
+                            ? Text(textButton,
+                                style: Styles.textStyleFugazOne(context,
+                                    size: 24,
+                                    color:
+                                        const Color.fromRGBO(5, 63, 92, 1.0)))
+                            : const CircularProgressIndicator(
+                                color: Color.fromRGBO(5, 63, 92, 1.0),
+                              ),
+                      ),
                     ),
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -72,11 +158,26 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: Styles.textStylePoppins(context,
                           size: 18, color: Colors.white),
                     ),
-                    Text(
-                      "Sign in",
-                      style: Styles.textStylePoppins(context,
-                          size: 18,
-                          color: const Color.fromRGBO(242, 127, 12, 1.0)),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (textLink == "Sign In") {
+                            _signIn = true;
+                            textLink = "Register";
+                            textButton = "Sign In";
+                          } else {
+                            _signIn = false;
+                            textLink = "Sign In";
+                            textButton = "Register";
+                          }
+                        });
+                      },
+                      child: Text(
+                        textLink,
+                        style: Styles.textStylePoppins(context,
+                            size: 18,
+                            color: const Color.fromRGBO(242, 127, 12, 1.0)),
+                      ),
                     ),
                   ])
                 ])));
@@ -97,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
     var _quotes = Column(
       children: [
         Flexible(
-          flex:2,
+          flex: 2,
           child: CarouselSlider.builder(
             itemCount: quotes.length,
             itemBuilder:
@@ -110,28 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 autoPlayCurve: Curves.easeIn),
           ),
         ),
-        Flexible(
-          flex: 2,
-          child: Row(
-            children: [
-              const Icon(FontAwesomeIcons.exclamationTriangle,
-                  color: Colors.redAccent),
-              SizedBox(width: (20 / 720) * _height),
-              Container(
-                height: _height / 100 * 10,
-                padding: EdgeInsets.all(((10 / 720) * _height)),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular((20 / 720) * _height),
-                  border: Border.all(width: 1.5, color: Colors.redAccent),
-                ),
-                child: Text(
-                    "The site is under construction.\nPress register or sign in to continue",
-                    style: Styles.textStylePoppins(context,
-                        size: 14, color: Colors.redAccent)),
-              ),
-            ],
-          ),
-        ),
+        Flexible(flex: 2, child: Container()),
       ],
     );
 

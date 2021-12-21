@@ -1,16 +1,14 @@
 # mentor_codetivate_hackathon
 
-The project is built using Flutter for web for the 2021 codetivate hackathon. The  project showcases the power of flutter un UI design and it includes intergration with Firebase for authentication and data storage
+The project is built using Flutter for web for the 2021 codetivate hackathon. The  project showcases the power of flutter un UI design and it includes intergration with Firebase for authentication. I was hoping to intergrate cloud firestore but I was short of time and I will be doing this in the near future.
 
-## Getting Started
+The project was built for the [Codetivate Hackathon](https://codetivate.devpost.com/?ref_feature=challenge&ref_medium=your-open-hackathons&ref_content=Submissions+open) hosted by[The Dynamics](https://the-dynamics.org/). I would like to thank The dynamics for the wonderful opportunity to work on the project and for all the fun experiences I had in the hackathons duration. Despite the additional time I was still not able to archieve what I envisioned for the app but I promised myself to present what I had and these is it. 
 
-This project is a starting point for a Flutter application.
+For those who are using the project to learn I will be working on the code readerbility to help you easily use the project.
 
-A few resources to get you started if this is your first Flutter project:
+I will also be finishing up the project soon enough.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## View Project
+
+[Mentor](https://mentor-5e2d9.web.app/)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/text_styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -27,20 +28,44 @@ class Footer extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text("\u00a92021 Mentors. All rights reserved",
-              style: Styles.textStyleFugazOne(context, size: 16, color: Colors.white)),
+              style: Styles.textStyleFugazOne(context,
+                  size: 16, color: Colors.white)),
           Text("Developed by Sammy Mwenda",
-              style: Styles.textStyleFugazOne(context, size: 16, color: Colors.white)),
+              style: Styles.textStyleFugazOne(context,
+                  size: 16, color: Colors.white)),
           Row(
             children: [
-              _socialButtons(FontAwesomeIcons.github),
+              InkWell(
+                  onTap: () async {
+                    await launch("https://github.com/thatguyskullie");
+                  },
+                  child: _socialButtons(FontAwesomeIcons.github)),
               space,
-              _socialButtons(FontAwesomeIcons.medium),
+              InkWell(
+                  onTap: () async {
+                    await launch("https://medium.com/@thatGuySkullie");
+                  },
+                  child: _socialButtons(FontAwesomeIcons.medium)),
               space,
-              _socialButtons(FontAwesomeIcons.twitter),
+              InkWell(
+                  onTap: () async {
+                    await launch("https://twitter.com/NisaTechnologi3");
+                  },
+                  child: _socialButtons(FontAwesomeIcons.twitter)),
               space,
-              _socialButtons(FontAwesomeIcons.facebook),
+              InkWell(
+                  onTap: () async {
+                    await launch(
+                        "https://www.facebook.com/profile.php?id=100067944046429");
+                  },
+                  child: _socialButtons(FontAwesomeIcons.facebook)),
               space,
-              _socialButtons(FontAwesomeIcons.instagram),
+              InkWell(
+                  onTap: () async {
+                    await launch(
+                        "https://www.instagram.com/nisa_technologies/");
+                  },
+                  child: _socialButtons(FontAwesomeIcons.instagram)),
               space
             ],
           )

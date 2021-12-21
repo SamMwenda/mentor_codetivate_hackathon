@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mentor_codetivate_hackathon/Screens/be_a_mentor.dart';
+import 'package:mentor_codetivate_hackathon/Screens/find_a_mentee.dart';
 import 'package:mentor_codetivate_hackathon/Screens/find_a_mentor.dart';
 import 'package:mentor_codetivate_hackathon/Screens/profile.dart';
+import 'package:mentor_codetivate_hackathon/Screens/sign_up.dart';
 
 class Header extends StatefulWidget {
   const Header({Key? key}) : super(key: key);
@@ -24,20 +28,36 @@ class _HeaderState extends State<Header> {
     //navigation buttons to different pages
     _menuNavigation(String text, {required Color color}) {
       return GestureDetector(
-        onTap: () {
+        onTap: () async {
+          var user = FirebaseAuth.instance.currentUser;
           if (text == "Profile") {
-            Navigator.push(
-                context,
-                PageRouteBuilder(
-                    transitionDuration: const Duration(milliseconds: 300),
-                    transitionsBuilder:
-                        (_, Animation<double> animation, __, Widget child) {
-                      return Opacity(
-                        opacity: animation.value,
-                        child: child,
-                      );
-                    },
-                    pageBuilder: (context, _, __) => ProfileScreen()));
+            if (user == null) {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      transitionDuration: const Duration(milliseconds: 300),
+                      transitionsBuilder:
+                          (_, Animation<double> animation, __, Widget child) {
+                        return Opacity(
+                          opacity: animation.value,
+                          child: child,
+                        );
+                      },
+                      pageBuilder: (context, _, __) => const SignUpPage()));
+            } else {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      transitionDuration: const Duration(milliseconds: 300),
+                      transitionsBuilder:
+                          (_, Animation<double> animation, __, Widget child) {
+                        return Opacity(
+                          opacity: animation.value,
+                          child: child,
+                        );
+                      },
+                      pageBuilder: (context, _, __) => const ProfileScreen()));
+            }
           } else if (text == "Find a mentor") {
             Navigator.push(
                 context,
@@ -51,6 +71,34 @@ class _HeaderState extends State<Header> {
                       );
                     },
                     pageBuilder: (context, _, __) => const FindMentorScreen()));
+          }
+          else if (text == "Find a mentee") {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 300),
+                    transitionsBuilder:
+                        (_, Animation<double> animation, __, Widget child) {
+                      return Opacity(
+                        opacity: animation.value,
+                        child: child,
+                      );
+                    },
+                    pageBuilder: (context, _, __) => const FindMenteeScreen()));
+          }
+          else if (text == "Be a mentor") {
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 300),
+                    transitionsBuilder:
+                        (_, Animation<double> animation, __, Widget child) {
+                      return Opacity(
+                        opacity: animation.value,
+                        child: child,
+                      );
+                    },
+                    pageBuilder: (context, _, __) => const BeAMentor()));
           }
         },
         child: MouseRegion(

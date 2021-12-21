@@ -1,5 +1,5 @@
 name: mentor_codetivate_hackathon
-description: The project is built using Flutter for web for the 2021 codetivate hackathon. The  project showcases the power of flutter un UI design and it includes intergration with Firebase for authentication and data storage
+description: The project is built using Flutter for web for the 2021 codetivate hackathon. The  project showcases the power of flutter in UI design and it includes intergration with Firebase for authentication and data storage. I created the project for the codetivate hackathon. Sadly even after some additional time I was unable to finish the project to my liking but I promised myself to present the project. I will continue building on the project to archive what I was aiming for. Thank you codetivate for the fun experience and a chance to build search a beautiful web app
 version: 1.0.0+1
 
 environment:
@@ -9,12 +9,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^9.2.0
-  cached_network_image: ^3.2.0
   carousel_slider: ^4.0.0
   firebase_auth: ^3.3.4
   cloud_firestore: ^3.1.5
-  firebase_storage: ^10.2.4
   firebase_core: ^1.10.6
+  get_it: ^7.2.0
+  url_launcher: ^6.0.17
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -22,15 +22,30 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/gui/facebook.png
-    - assets/gui/github.png
-    - assets/gui/instagram.png
-    - assets/gui/intro_image.png
-    - assets/gui/linkedin.png
-    - assets/gui/logo.png
-    - assets/gui/twitter.png
     - assets/gui/world.png
-    - assets/gui/medium.png
+    - assets/gui/logo.png
+    - assets/gui/intro_image.png
+    - assets/profiles/1.png
+    - assets/profiles/2.png
+    - assets/profiles/3.png
+    - assets/profiles/4.png
+    - assets/profiles/5.png
+    - assets/profiles/6.png
+    - assets/profiles/7.png
+    - assets/profiles/8.png
+    - assets/profiles/9.png
+    - assets/profiles/10.png
+    - assets/profiles/11.png
+    - assets/profiles/12.png
+    - assets/profiles/13.png
+    - assets/profiles/14.png
+    - assets/profiles/15.png
+    - assets/profiles/16.png
+    - assets/profiles/17.png
+    - assets/profiles/18.png
+    - assets/profiles/19.png
+    - assets/profiles/20.png
+
   fonts:
     - family: Poppins
       fonts:

@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:mentor_codetivate_hackathon/Models/mentors.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/find_a_mentor_mentee.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/footer.dart';
 import 'package:mentor_codetivate_hackathon/Widgets/header.dart';
@@ -19,7 +18,6 @@ class _FindMentorScreenState extends State<FindMentorScreen> {
   Widget build(BuildContext context) {
     //height and width of device screen
     double _height = MediaQuery.of(context).size.height;
-    double _width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(5, 63, 92, 1.0),
@@ -40,7 +38,8 @@ class _FindMentorScreenState extends State<FindMentorScreen> {
           const Align(alignment: Alignment.topLeft, child: Header()),
           Align(
               alignment: Alignment.center,
-              child: Column(children: [
+              child: Column(
+                children: [
                 Padding(
                   padding: EdgeInsets.only(top: (120 / 720) * _height),
                   child: const SearchTextWidget(),
@@ -53,11 +52,22 @@ class _FindMentorScreenState extends State<FindMentorScreen> {
                         size: 32, color: Colors.white),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all((10 / 720) * _height),
-                  child: const FindMentorMenteeItem(
-                      Color.fromRGBO(159, 231, 245, 1.0)),
-                )
+                Flexible(
+                  child: Padding(
+                    padding:  EdgeInsets.only(left:(120 / 720) * _height,
+                        top: (60 / 720) * _height),
+                    child: GridView.count(
+                        padding: EdgeInsets.all((10 / 720) * _height),
+                        physics: const BouncingScrollPhysics(),
+                        crossAxisCount: 3,
+                        children: List.generate(
+                          mentors.length,
+                          (index) => Padding(
+                              padding: EdgeInsets.all((10 / 720) * _height),
+                              child: FindMentorMenteeItem(mentor:mentors[index])),
+                        )),
+                  ),
+                ),
               ])),
           const Align(alignment: Alignment.bottomCenter, child: Footer()),
         ],
